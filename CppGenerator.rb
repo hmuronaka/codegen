@@ -1,6 +1,5 @@
 # coding: utf-8
 require './CppSectionGenerator.rb'
-require './CppCommentGenerator.rb'
 require './type_map.rb'
 require './Indent.rb'
 
