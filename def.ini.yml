@@ -1,0 +1,39 @@
+env:
+  list_len: 9
+sections:
+  - section: server
+    comment: サーバー定義
+    values:
+      - attr: ipaddress
+        comment: IPv4のアドレス
+        type: string
+        default: "127.0.0.1"
+      - attr: port
+        type: int
+      - attr: connect_timeout
+        comment: 接続タイムアウト(ms)
+        type: int
+        default: 10000
+  - section: value_list_sample
+    values: 
+     - attr: urls
+       type: string_list
+       comment: urlをvector<string>に格納する
+     - attr: numbers
+       type: int_list
+       comment: 整数値をvector<int>に格納する
+  - section: section_list
+    values:
+    - attr: url
+      type: string
+      comment: 接続先url
+    - attr: comment
+      type: string
+
+    
+
+
+    
+
+    
+

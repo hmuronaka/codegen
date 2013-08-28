@@ -1,0 +1,28 @@
+
+depot=$HOME/src/codegen CD=. filter="**" {
+ CppGenerator.rb
+ CppHelper.rb
+ CppIntValueGenerator.rb
+ CppSectionGenerator.rb
+ CppStringValueGenerator.rb
+ HeaderGenerator.rb
+ HeaderListValueGenerator.rb
+ HeaderSectionGenerator.rb
+ HeaderValueGenerator.rb
+ Indent.rb
+ IniCommentGenerator.rb
+ IniGenerator.rb
+ IniHelper.cpp
+ IniHelper.h.rb
+ IniIntValueGenerator.rb
+ IniListValueGenerator.rb
+ IniSectionGenerator.rb
+ IniStringValueGenerator.rb
+ IniValueGenerator.rb
+ code_generator.rb
+ def.ini.yml
+ test.cpp
+ type_map.rb
+ IniHelper.h
+ test.h
+}
