@@ -20,7 +20,7 @@ module Codegen
       name = value_def['attr'].chomp
       source =<<STR
 #{comment}
-#{listize type} #{name};
+#{listize type} _#{name};
 STR
       source
     end
@@ -38,11 +38,11 @@ const #{value_type}&  get_#{attr}(int index) const {
   return _#{attr}[index];
 }
 
-int get_#{attr}_len const {
+int get_#{attr}_len() const {
   return _#{attr}.size();
 }
 
-const #{type}& get_#{attr}_list const {
+const #{type}& get_#{attr}_list() const {
   return _#{attr};
 }
 STR

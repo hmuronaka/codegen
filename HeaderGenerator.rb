@@ -13,7 +13,13 @@ module Codegen
   
     def generate(name, yaml)
       env = yaml['env']
-      source = ""
+      source =<<STR
+#include"IIni.h"
+#include<cstringt.h>
+#include<vector>
+using namespace std;
+
+STR
       yaml['sections'].each do |section|
         generator = HeaderSectionGenerator.new(env)
         source << generator.generate(section)
@@ -25,7 +31,7 @@ module Codegen
 class #{name} : public IIni {
 public:
   #{name}() {}
-  ~#{name}() {}
+  virtual ~#{name}() {}
 private:
 STR
                    ) do |s|

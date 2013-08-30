@@ -14,10 +14,11 @@ module Codegen
     end
   
     def generate(section)
-      source = gen_constructor section
-      source << "\n"
-      source << gen_destructor(section)
-      source << "\n"
+       source = ""
+#      source = gen_constructor section
+#      source << "\n"
+#      source << gen_destructor(section)
+#      source << "\n"
       source << gen_load(section)
     end
   

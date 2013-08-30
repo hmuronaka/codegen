@@ -26,6 +26,7 @@ STR
 
     def generate_method(value_def)
       type = value_def['type'].chomp
+      type = resolve_type type
       attr = value_def['attr'].chomp
       source =<<STR
 void set_#{attr}(const #{type}& value) {

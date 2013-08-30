@@ -1,12 +1,14 @@
 # coding: utf-8
 require './CppSectionGenerator.rb'
 require './type_map.rb'
+require './CppHelper.rb'
 require './Indent.rb'
 
 module Codegen
 
   class CppGenerator
   
+  	include CppHelper
     include TypeResolver
   
     def initialize
@@ -15,7 +17,12 @@ module Codegen
   
     def generate(name, yaml)
       env = yaml['env']
-      source = ""
+      source =<<STR
+#include"stdafx.h"
+#include"#{name}.h"
+#include"IniHelper.h"
+
+STR
       yaml['sections'].each do |section|
         generator = CppSectionGenerator.new(env)
         source << generator.generate(section)
@@ -23,8 +30,8 @@ module Codegen
       end
   
       string_type = get_string_type 
-      source << gen_constructor(name)
-      source << "\n"
+#      source << gen_constructor(name)
+#      source << "\n"
       source << gen_method(name, yaml['sections'], "load")
       source << "\n"
       source << gen_method(name, yaml['sections'], "save")
@@ -50,7 +57,7 @@ STR
         sections.each do |section|
           attr = section['section']
         src.indent <<STR
-_#{attr}.#{method_name}(iniPath, "#{attr}");
+_#{attr}.#{method_name}(iniPath, #{textize attr});
 STR
         end
       end

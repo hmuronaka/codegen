@@ -42,7 +42,7 @@ STR
         src.indent <<STR
 virtual void load(const #{string_type}& iniPath, const #{string_type}& section);
 
-virtual void save(const ##{string_type}& iniPath, const #{string_type}& section);
+virtual void save(const #{string_type}& iniPath, const #{string_type}& section);
 
 STR
       end
