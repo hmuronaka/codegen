@@ -21,8 +21,7 @@ depot=$HOME/src/codegen CD=. filter="**" {
  IniValueGenerator.rb
  code_generator.rb
  def.ini.yml
- test.cpp
  type_map.rb
+ IIni.h
  IniHelper.h
- test.h
 }
