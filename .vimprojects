@@ -3,13 +3,13 @@ depot=$HOME/src/codegen CD=. filter="**" {
  CppGenerator.rb
  CppHelper.rb
  CppIntValueGenerator.rb
- CppSectionGenerator.rb
  CppStringValueGenerator.rb
  HeaderGenerator.rb
  HeaderListValueGenerator.rb
  HeaderValueGenerator.rb
  Indent.rb
  Ini.cpp.erb
+ Ini.erb
  Ini.h.erb
  IniCommentGenerator.rb
  IniGenerator.rb
@@ -20,11 +20,11 @@ depot=$HOME/src/codegen CD=. filter="**" {
  IniSectionGenerator.rb
  IniStringValueGenerator.rb
  IniValueGenerator.rb
- Section.ini.erb
  _Class.cpp.erb
  _Class.h.erb
  _Section.cpp.erb
  _Section.h.erb
+ _Section.ini.erb
  code_generator.rb
  def.ini.yml
  header.erb

@@ -20,7 +20,7 @@ module Codegen
       source = <<STR
 _#{value_def['attr']} = IniHelper::#{method_name}(iniPath, section, #{textize value_def['attr'].chomp}, #{textize default_value});
 STR
-      source
+      source.chomp
     end
 
     def generate_save(value_def)
