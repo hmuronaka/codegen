@@ -4,7 +4,7 @@ module Codegen
 
   module IniCommentGenerator
   
-    def generate_comment(comment)
+    def comment_to_s(comment)
       comment ? comment.gsub(/^/, ";") : ""
     end
   

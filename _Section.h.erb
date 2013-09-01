@@ -1,0 +1,16 @@
+<%= comment_to_s section['comment'] %>
+class #{section['section'].chomp} : public ISection {
+private:
+<%- section['values'].each do |value| -%>
+  <%= value_to_s value %>
+<%- end -%>
+
+public:
+<%- section['values'].each do |value| -%>
+  <%= value_method_to_s value %>
+<%- end -%>
+  virtual void load(const #{string_type}& iniPath, const #{string_type}& section);
+
+  virtual void save(const #{string_type}& iniPath, const #{string_type}& section);
+};
+

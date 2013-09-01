@@ -1,0 +1,14 @@
+<%= name %>::<%= name %>{}
+<%= name %>::~<%= name %>{}
+
+void <%= name %>::load(const <%= string_type %>& iniPath) {
+  <%- sections.each do |section| -%>
+  _<%= section['section'] %>.load(iniPath, <%= textize section['section'] %>);
+  <%- end -%>
+}
+
+void <%= name %>::save(const <%= string_type %>& iniPath) {
+  <%- sections.each do |section| -%>
+  _<%= section['section'] %>.save(iniPath, <%= textize section['section'] %>);
+  <%- end -%>
+}

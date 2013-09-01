@@ -1,0 +1,11 @@
+#include"IIni.h"
+#include<cstringt.h>
+#include<vector>
+using namespace std;
+
+<%- sections.each do |section| -%>
+<%= section_to_s section %>
+<%- end -%>
+
+<%= class_to_s sections %>
+

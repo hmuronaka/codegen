@@ -1,12 +1,9 @@
 # coding: utf-8
 require './IniSectionGenerator.rb'
-require './IniCommentGenerator.rb'
 
 module Codegen
 
   class IniGenerator
-  
-    include IniCommentGenerator
   
     def initialize
   

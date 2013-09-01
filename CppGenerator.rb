@@ -1,8 +1,9 @@
 # coding: utf-8
-require './CppSectionGenerator.rb'
+require 'erb'
 require './type_map.rb'
 require './CppHelper.rb'
-require './Indent.rb'
+require './CppIntValueGenerator.rb'
+require './CppStringValueGenerator.rb'
 
 module Codegen
 
@@ -16,52 +17,64 @@ module Codegen
     end
   
     def generate(name, yaml)
+      @name = name
       env = yaml['env']
-      source =<<STR
-#include"stdafx.h"
-#include"#{name}.h"
-#include"IniHelper.h"
-
-STR
-      yaml['sections'].each do |section|
-        generator = CppSectionGenerator.new(env)
-        source << generator.generate(section)
-        source << "\n"
-      end
-  
-      string_type = get_string_type 
-#      source << gen_constructor(name)
-#      source << "\n"
-      source << gen_method(name, yaml['sections'], "load")
-      source << "\n"
-      source << gen_method(name, yaml['sections'], "save")
-      source << "\n"
-      
+      sections = yaml['sections']
+      filename = 'Ini.cpp.erb'
+      erb = ERB.new(File.read(filename), nil, '-')
+      erb.filename = filename
+      erb.result(binding)
     end
-  
-    def gen_constructor(name)
-      source =<<STR
-#{name}::#{name}{}
-#{name}::~#{name}{}
 
-STR
-      source
-    end
-  
-    def gen_method(name, sections, method_name)
+    def section_to_s(section)
+      name = @name
       string_type = TYPE_MAP['string']
-      source =<<STR
-void #{name}::#{method_name}(const #{string_type}& iniPath) {
-STR
-      source.indent "" do |src|
-        sections.each do |section|
-          attr = section['section']
-        src.indent <<STR
-_#{attr}.#{method_name}(iniPath, #{textize attr});
-STR
+      unless @section_erb
+        filename = '_Section.cpp.erb'
+        @section_erb = ERB.new(File.read(filename), nil, '-')
+      end
+      @section_erb.result(binding)
+    end
+
+    def class_to_s(sections)
+      name = @name
+      string_type = TYPE_MAP['string']
+      unless @class_erb
+        filename ='_Class.cpp.erb'
+        @class_erb = ERB.new(File.read(filename), nil, '-')
+      end
+      @class_erb.result(binding)
+    end
+
+    def section_initializer_to_s(section)
+      values = section['values']
+      source = ""
+      if values and values.length > 0
+        source = ":"
+        values.each_with_index do |value,i|
+          source << "\n_#{value['attr']}()" + (i + 1 < values.length ? "," : "")  
         end
       end
-      source << "}"
+      source
+    end
+
+    def value_load_to_s(value)
+      gen = get_value_generator(value['type'])
+      gen.generate_load(value)
+    end
+
+    def value_save_to_s(value)
+      gen = get_value_generator(value['type'])
+      gen.generate_save(value)
+    end
+   
+   
+    def get_value_generator(type)
+      if type =~ /string/
+        return CppStringValueGenerator.new
+      elsif type =~ /int/
+        return CppIntValueGenerator.new
+      end
     end
   
   end

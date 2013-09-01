@@ -10,6 +10,10 @@ module Codegen
     def commentize(comment)
       comment ? comment.gsub(/^/, "//") : ""
     end
+
+    def comment_to_s(comment)
+      commentize comment
+    end
   
 
   end

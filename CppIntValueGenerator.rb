@@ -5,7 +5,7 @@ module Codegen
   class CppIntValueGenerator 
     include CppHelper
 
-    def generate(value_def)
+    def generate_load(value_def)
       type = value_def['type']
       method_name = "loadInt"
       if type =~ /(.*)_list/
@@ -20,6 +20,10 @@ module Codegen
 _#{value_def['attr']} = IniHelper::#{method_name}(iniPath, section, #{textize value_def['attr'].chomp}, #{default_value});
 STR
       source
+    end
+
+    def generate_save(value_def)
+
     end
   end
   

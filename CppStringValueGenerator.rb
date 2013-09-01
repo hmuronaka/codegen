@@ -6,7 +6,7 @@ module Codegen
 
     include CppHelper
     
-    def generate(value_def)
+    def generate_load(value_def)
       method_name = "loadString"
       type = value_def['type']
       if type =~ /(.*)_list/
@@ -21,6 +21,10 @@ module Codegen
 _#{value_def['attr']} = IniHelper::#{method_name}(iniPath, section, #{textize value_def['attr'].chomp}, #{textize default_value});
 STR
       source
+    end
+
+    def generate_save(value_def)
+
     end
   end
 end

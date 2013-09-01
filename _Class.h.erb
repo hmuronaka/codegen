@@ -1,0 +1,25 @@
+class <%= name %> : public IIni {
+public:
+  <%= name %>() {}
+  virtual ~#<%= name %>() {}
+
+private:
+<%- sections.each do |section| -%>
+  <%= section['section'] %> _<%= section['section'] %>;
+<%- end -%>
+
+public:
+<%- sections.each do |section| -%>
+  void set_<%= section['section'] %>(const <%= section['section'] %>& value) {
+    _<%= section['section']%> = value;
+  }
+  const <%= section['section'] %>& get_<%= section['section'] %>() const {
+    return _<%= section['section']%>
+  }
+<%- end -%>
+
+public:
+  virtual void load(const <%= string_type %>& iniPath);
+  virtual void save(const <%= string_type %>& iniPath);
+};
+

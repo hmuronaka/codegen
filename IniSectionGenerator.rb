@@ -1,4 +1,5 @@
-# coding: utf-8
+#  coding: utf-8
+require 'erb'
 require './IniCommentGenerator.rb'
 require './IniIntValueGenerator.rb'
 require './IniListValueGenerator.rb'
@@ -15,22 +16,19 @@ module Codegen
     end
   
     def generate(section)
-      comment = generate_comment(section['comment'])
-      source = comment
-      source << "\n" if comment and comment.length > 0
-      source << <<STR
-[#{section['section'].chomp}]
-STR
-      values = section['values']
-      values.each do |value_def|
-        value_generator = get_value_generator value_def['type'].chomp
-        source << value_generator.generate(value_def)
-        source << "\n"
-      end
-      source
+
+      filename = 'Section.ini.erb'
+      erb = ERB.new(File.read(filename),nil, '-')
+      erb.filename = filename
+      erb.result(binding)
+    end
+
+    def valuelize(value)
+      gen = new_generator(value['type'])
+      gen.generate(value)
     end
   
-    def get_value_generator(type)
+    def new_generator(type)
       if type =~ /list$/
         return IniListValueGenerator.new(@env)
       elsif type == "int"

@@ -1,0 +1,11 @@
+<%- if section['comment'] -%>
+  <%= comment_to_s section['comment'] %>
+<%- end -%>
+[<%= section['section'] %>]
+<%- section['values'].each do |value| -%>
+  <%- if value['comment'] -%>
+<%= comment_to_s value['comment'] %>
+  <%- end -%>
+<%= valuelize value %>
+<%- end -%>
+
